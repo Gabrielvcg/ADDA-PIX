@@ -1,7 +1,7 @@
 package ejercicios;
 
 
-	import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import us.lsi.tiposrecursivos.BinaryTree;
@@ -15,32 +15,7 @@ import us.lsi.tiposrecursivos.Tree.TNary;
 
 
 public class Ejercicio3 {
-/*
-	ALGORITMO EN ITERATIVO BINARIO
-	public static  Boolean isBinaryEquilibratedAux(BinaryTree<Character> tree, List<Boolean> res, int nivel) {
-		if(res.size() <= nivel) res.add(true);
-		return switch (tree) {
-		case BEmpty<Character> t -> true;
-		case BLeaf<Character> t -> true;
-		case BTree<Character> t -> (t.left().height()-t.right().height()<=1) &&(isBinaryEquilibratedAux(t.left(), res, nivel+1) && isBinaryEquilibratedAux(t.right(), res, nivel+1));
-		};
-	}
-	  ITERATIVO NARIO
-	private static  Boolean isTreeEquilibratedAux(Tree<Character> tree, int nivel, List<Boolean> res) {
-		if(res.size() <= nivel) res.add(true);
-		return switch (tree) {
-		case TEmpty<Character> t -> true;
-		case TLeaf<Character> t -> true;
-		case TNary<Character> t -> {
-			Integer height= 1+t.children().stream().mapToInt(tc->tc.height()).max().getAsInt();
-			Integer minorHeight= 1+t.children().stream().mapToInt(tc->tc.height()).min().getAsInt();
-			res.set(nivel, height-minorHeight<=1);
-		    yield res.get(nivel);
-		}
-		
-		};
-	}*/
-	
+
 	public static  Boolean isBinaryEquilibrated (BinaryTree<Character> tree) {
 		List<Boolean> res=new ArrayList<>();
 		return isBinaryEquilibratedAux(tree,res,0);	
