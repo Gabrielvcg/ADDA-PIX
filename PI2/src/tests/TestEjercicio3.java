@@ -18,7 +18,7 @@ public class TestEjercicio3 {
 	public static void testsEjercicio3() {
 		
 		String BinaryTreeFile = "ficheros/PI2Ej3DatosEntradaBinary.txt";
-		String TreeFile="ficheros/PI2Ej3DatosEntradaBinary.txt";
+		String TreeFile="ficheros/PI2Ej3DatosEntradaNary.txt";
 		List<BinaryTree<Character>> inputs =
 				Files2
 				.streamFromFile(BinaryTreeFile)

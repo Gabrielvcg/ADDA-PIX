@@ -54,9 +54,10 @@ public class Ejercicio3 {
 	        case BLeaf<Character> t -> true;
 	        case BTree<Character> t -> {
 	        	
-	        	Boolean r=	 Math.abs( t.left().height() - t.right().height()) <= 1 
-	        	&&  isBinaryEquilibratedAux(t.left(), res, nivel + 1) 
-	        	&& isBinaryEquilibratedAux(t.right(), res, nivel + 1);
+	        	Boolean r=	 
+	        	  isBinaryEquilibratedAux(t.left(), res, nivel + 1) 
+	        	&& isBinaryEquilibratedAux(t.right(), res, nivel + 1)
+	        	&&   t.left().height() - t.right().height() <= 1;
 	        	res.set(nivel, r);
 	        	yield res.get(nivel);
 	        }
@@ -75,8 +76,12 @@ public class Ejercicio3 {
 		case TEmpty<Character> t -> true;
 		case TLeaf<Character> t -> res.get(nivel);
 		case TNary<Character> t -> {
-			//Boolean r= res.get(nivel) && (t.children().forEach(tc-> isTreeEquilibratedAux(tc,nivel+1,res)));
-		    yield res.get(nivel);
+			t.children().forEach(tc-> isTreeEquilibratedAux(tc,nivel+1,res));
+			Integer height= 1+t.children().stream().mapToInt(tc->tc.height()).max().getAsInt();
+			Integer minorHeight= 1+t.children().stream().mapToInt(tc->tc.height()).min().getAsInt();
+			res.set(nivel, height-minorHeight<=1 && !res.contains(false));
+			yield res.get(nivel);
+		 
 		}
 		
 		};
