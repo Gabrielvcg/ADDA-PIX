@@ -1,12 +1,17 @@
 package ejercicios;
 
 
+	import java.util.ArrayList;
 import java.util.List;
 
 import us.lsi.tiposrecursivos.BinaryTree;
 import us.lsi.tiposrecursivos.BinaryTree.BEmpty;
 import us.lsi.tiposrecursivos.BinaryTree.BLeaf;
 import us.lsi.tiposrecursivos.BinaryTree.BTree;
+import us.lsi.tiposrecursivos.Tree;
+import us.lsi.tiposrecursivos.Tree.TEmpty;
+import us.lsi.tiposrecursivos.Tree.TLeaf;
+import us.lsi.tiposrecursivos.Tree.TNary;
 
 
 public class Ejercicio3 {
@@ -22,18 +27,38 @@ public class Ejercicio3 {
 	 */
 
 	
-	public static Boolean solucion_recursiva (BinaryTree<Character> tree,List<Character> list) {
-		return recursivo(tree,list,0);	
+	public static  Boolean isBinaryEquilibrated (BinaryTree<Character> tree) {
+		List<Boolean> res=new ArrayList<>();
+		return isBinaryEquilibratedAux(tree,res,0);	
 	}
 	
-	public static Boolean recursivo(BinaryTree<Character> tree, List<Character> ls, int i) {
-		Integer n = ls.size();
+	public static  Boolean isBinaryEquilibratedAux(BinaryTree<Character> tree, List<Boolean> res, int nivel) {
+		if(res.size() <= nivel) res.add(true);
 		return switch (tree) {
-		case BEmpty<Character> t -> false;
-		case BLeaf<Character> t -> n - i == 1 && ls.get(i).equals(t.label());
-		case BTree<Character> t -> n - i > 0 && ls.get(i).equals(t.label())
-				&& (recursivo(t.left(), ls, i+1) || recursivo(t.right(), ls, i+1));
+		case BEmpty<Character> t -> true;
+		case BLeaf<Character> t -> true;
+		case BTree<Character> t -> (t.left().height()-t.right().height()<=1) &&(isBinaryEquilibratedAux(t.left(), res, nivel+1) && isBinaryEquilibratedAux(t.right(), res, nivel+1));
 		};
 	}
+	/*
+	public static  Boolean solucion_recursiva (Tree<Character> tree){
+		List<Boolean> res=new ArrayList<>();
+		return recursivo (tree,0,res);
+	}
+	
+	
+	private static  Boolean recursivo(Tree<Character> tree, int nivel, List<Boolean> res) {
+		if(res.size() <= nivel) res.add(true);
+		List<Integer> ac=new ArrayList<>();
+		return switch (tree) {
+		case TEmpty<Character> t -> true;
+		case TLeaf<Character> t -> true;
+		case TNary<Character> t -> 
+		t.children().forEach(tc -> ac.add(tc.height()));
+		
+		
+		};
+	}*/
+	
 }
 

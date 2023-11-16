@@ -19,7 +19,7 @@ public class TestEjercicio4 {
 	}
 		public static void testsEjercicio4() {
 			
-			String file = "ficheros_ejemplo/p2/ejemplo5.txt";
+			String file = "ficheros/PI2Ej4DatosEntradaBinary.txt";
 			
 			List<Tree<Integer>> inputs = Files2
 					.streamFromFile(file)
@@ -34,10 +34,10 @@ public class TestEjercicio4 {
 			inputs.stream()
 			.forEach(x->System.out.println(x+": "+Ejercicio4.solucion_recursiva(x, PAR)));
 
-			System.out.println("\nSOLUCION RECURSIVA-PRIMOS:\n");	
+		/*	System.out.println("\nSOLUCION RECURSIVA-PRIMOS:\n");	
 			inputs.stream()
 				.forEach(x->System.out.println(x+": "+Ejercicio4.solucion_recursiva(x, PRIMO)));
 
-
+*/
 		}
 }
