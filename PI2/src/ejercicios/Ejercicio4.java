@@ -3,46 +3,79 @@ package ejercicios;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import us.lsi.tiposrecursivos.BinaryTree;
 import us.lsi.tiposrecursivos.Tree;
+import us.lsi.tiposrecursivos.BinaryTree.BEmpty;
+import us.lsi.tiposrecursivos.BinaryTree.BLeaf;
+import us.lsi.tiposrecursivos.BinaryTree.BTree;
 import us.lsi.tiposrecursivos.Tree.TEmpty;
 import us.lsi.tiposrecursivos.Tree.TLeaf;
 import us.lsi.tiposrecursivos.Tree.TNary;
 
 public class Ejercicio4 {
-	/*
-	PI3 - Ejemplo 5
 
-	Diseñe un algoritmo que dado un árbol n-ario Tree<E> y un predicado sobre E
-	devuelva una lista List<Boolean> de forma que el elemento i-ésimo de la lista será “True”
-	si todos los elementos del nivel i cumplen el predicado.
-
-	Resolver de forma recursiva
-	*/
-	
-
-	public static <E> List<Boolean> solucion_recursiva (Tree<E> t, Predicate<E> p){
-		return recursivo (t,p,0,new ArrayList<>());
+    //############################################
+	public static List<List<Integer>> caminoDivisibleB (BinaryTree<Integer> tree) {
+		
+		List<List<Integer>> crudo= caminoDivisibleBAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
+		  List<List<Integer>> filtrado= crudo.stream()
+	                .filter(path -> {
+	                    int sum = path.stream().mapToInt(Integer::intValue).sum();
+	                    return sum % path.size()-1 == 0;
+	                })
+	                .toList();
+		 return filtrado;
 	}
 	
 	
-	private static <E> List<Boolean> recursivo(Tree<E> tree, Predicate<E> pred, int nivel, List<Boolean> res) {
-		if(res.size() <= nivel) res.add(true);
+public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
+		
 		return switch (tree) {
-		case TEmpty<E> t -> res;
-		case TLeaf<E> t -> {
-			Boolean r = pred.test(t.label()) && res.get(nivel);
-			res.set(nivel, r); 
-			yield res;
+		case BEmpty<Integer> t -> res;
+		case BLeaf<Integer> t -> {
+			  ac.add(t.label());
+              res.add(new ArrayList<>(ac));
+              ac.remove(ac.size() - 1);
+              yield res;
+        
 		}
-		case TNary<E> t -> {
-			Boolean r = pred.test(t.label()) && res.get(nivel);
-			res.set(nivel, r);
-			t.children().forEach(tc -> recursivo(tc, pred, nivel + 1, res));
-			yield res;
+		case BTree<Integer> t -> {
+			 ac.add(t.label());
+             caminoDivisibleBAux(t.left(), res, ac, i + 1);
+             caminoDivisibleBAux(t.right(), res, ac, i + 1);
+             ac.remove(ac.size() - 1);
+             yield res;
 		}
-		default -> res;
 		};
 	}
+	/*
+public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree, List<List<Integer>> res,List<Integer> ac, int i) {
+		
+		return switch (tree) {
+		case BEmpty<Integer> t -> res;
+		case BLeaf<Integer> t ->{
+			for (List<Integer> x : res) {
+				Integer total=x.stream().reduce(0, (a, b) -> a + b);
+				if (!(total+t.label()% x.size()==0)) {
+					res.remove(x);
+				}x.add(t.label());
+			}
+		yield res;}
+		case BTree<Integer> t -> {
+			
+			Integer sumaCamino=ac.stream().reduce(0, (a, b) -> a + b)+t.label();
+			if(sumaCamino % i==0 ) {
+			ac.add(0,t.label());
+		}
+			caminoDivisibleBAux(t.left(), res,ac, i+1); 
+			caminoDivisibleBAux(t.right(), res,ac, i+1); 
+			res.add(ac);
+							
+		yield res;
+		}
+		};
+	}*/
 	
 }
