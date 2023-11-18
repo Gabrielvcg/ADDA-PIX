@@ -2,14 +2,12 @@ package ejercicios;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import us.lsi.tiposrecursivos.BinaryTree;
-import us.lsi.tiposrecursivos.Tree;
 import us.lsi.tiposrecursivos.BinaryTree.BEmpty;
 import us.lsi.tiposrecursivos.BinaryTree.BLeaf;
 import us.lsi.tiposrecursivos.BinaryTree.BTree;
+import us.lsi.tiposrecursivos.Tree;
 import us.lsi.tiposrecursivos.Tree.TEmpty;
 import us.lsi.tiposrecursivos.Tree.TLeaf;
 import us.lsi.tiposrecursivos.Tree.TNary;
@@ -40,6 +38,33 @@ public class Ejercicio4 {
 			 ac.add(t.label());
              caminoDivisibleBAux(t.left(), res, ac, i + 1);
              caminoDivisibleBAux(t.right(), res, ac, i + 1);
+             ac.remove(ac.size() - 1);
+             yield res;
+		}
+		};
+	}
+	public static List<List<Integer>> caminoDivisibleN (Tree<Integer> tree) {
+		return caminoDivisibleNAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
+		}
+	public static List<List<Integer>> caminoDivisibleNAux(Tree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
+		
+		return switch (tree) {
+		case TEmpty<Integer> t -> {
+			ac.add(0);
+			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
+           ac.remove(ac.size() - 1);
+           yield res;
+		}
+		case TLeaf<Integer> t -> {
+			  ac.add(t.label());
+			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
+              ac.remove(ac.size() - 1);
+              yield res;
+        
+		}
+		case TNary<Integer> t -> {
+			 ac.add(t.label());
+             t.children().forEach(tc->caminoDivisibleNAux(tc, res, ac, i + 1));		
              ac.remove(ac.size() - 1);
              yield res;
 		}

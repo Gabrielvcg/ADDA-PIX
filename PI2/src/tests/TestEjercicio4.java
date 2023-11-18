@@ -37,10 +37,10 @@ public class TestEjercicio4 {
 		inputs.stream()
 		.forEach(x->System.out.println(x+": "+Ejercicio4.caminoDivisibleB(x)));
 		
-		/*System.out.println("\nFICHERO ARBOL NARIO:\n");	
+		System.out.println("\nFICHERO ARBOL NARIO:\n");	
 		inputs2.stream()
-		.forEach(x->System.out.println(x+": "+Ejercicio4.isTreeEquilibrated(x)));
-		*/
+		.forEach(x->System.out.println(x+": "+Ejercicio4.caminoDivisibleN(x)));
+		
 		
 	}
 	
