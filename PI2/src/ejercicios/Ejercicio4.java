@@ -18,15 +18,10 @@ public class Ejercicio4 {
 
     //############################################
 	public static List<List<Integer>> caminoDivisibleB (BinaryTree<Integer> tree) {
+		return caminoDivisibleBAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
 		
-		List<List<Integer>> crudo= caminoDivisibleBAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
-		  List<List<Integer>> filtrado= crudo.stream()
-	                .filter(path -> {
-	                    int sum = path.stream().mapToInt(Integer::intValue).sum();
-	                    return sum % path.size()-1 == 0;
-	                })
-	                .toList();
-		 return filtrado;
+
+       
 	}
 	
 	
@@ -36,7 +31,7 @@ public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree,L
 		case BEmpty<Integer> t -> res;
 		case BLeaf<Integer> t -> {
 			  ac.add(t.label());
-              res.add(new ArrayList<>(ac));
+			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
               ac.remove(ac.size() - 1);
               yield res;
         
