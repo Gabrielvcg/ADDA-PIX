@@ -19,16 +19,16 @@ public class Ejercicio4 {
     //############################################
 	public static List<List<Integer>> caminoDivisibleB (BinaryTree<Integer> tree) {
 		return caminoDivisibleBAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
-		
-
-       
-	}
-	
-	
-public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
+		}
+	public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
 		
 		return switch (tree) {
-		case BEmpty<Integer> t -> res;
+		case BEmpty<Integer> t -> {
+			ac.add(0);
+			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
+           ac.remove(ac.size() - 1);
+           yield res;
+		}
 		case BLeaf<Integer> t -> {
 			  ac.add(t.label());
 			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
