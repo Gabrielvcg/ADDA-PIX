@@ -15,27 +15,44 @@ import us.lsi.tiposrecursivos.Tree.TNary;
 public class Ejercicio4 {
 
     //############################################
-	public static List<List<Integer>> caminoDivisibleB (BinaryTree<Integer> tree) {
-		return caminoDivisibleBAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
+	public static <E> List<List<E>> caminoDivisibleB (BinaryTree<Integer> tree) {
+		return caminoDivisibleBAux(tree,new ArrayList<List<E>>(),new ArrayList<E>(),0);	
 		}
-	public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
+	public static <E> List<List<E>> caminoDivisibleBAux(BinaryTree<Integer> tree,List<List<E>> res,List<E> ac, int i) {
 		
 		return switch (tree) {
 		case BEmpty<Integer> t -> {
-			ac.add(0);
-			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
+			ac.add((E)"_");
+			Integer total=  ac.stream()
+	                .mapToInt(elemento -> {
+	                    try {
+	                        return Integer.parseInt(elemento.toString());
+	                    } catch (NumberFormatException e) {
+	                        return 0; // Tratar elementos no válidos como 0
+	                    }
+	                })
+	                .sum();
+		  if(total % i ==0) res.add(new ArrayList<>(ac));
            ac.remove(ac.size() - 1);
            yield res;
 		}
 		case BLeaf<Integer> t -> {
-			  ac.add(t.label());
-			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
-              ac.remove(ac.size() - 1);
-              yield res;
-        
+			ac.add((E)t.label());
+			Integer total=  ac.stream()
+		                .mapToInt(elemento -> {
+		                    try {
+		                        return Integer.parseInt(elemento.toString());
+		                    } catch (NumberFormatException e) {
+		                        return 0; // Tratar elementos no válidos como 0
+		                    }
+		                })
+		                .sum();
+			  if(total % i ==0) res.add(new ArrayList<>(ac));
+	           ac.remove(ac.size() - 1);
+	           yield res;
 		}
 		case BTree<Integer> t -> {
-			 ac.add(t.label());
+			 ac.add((E)t.label());
              caminoDivisibleBAux(t.left(), res, ac, i + 1);
              caminoDivisibleBAux(t.right(), res, ac, i + 1);
              ac.remove(ac.size() - 1);
@@ -43,27 +60,45 @@ public class Ejercicio4 {
 		}
 		};
 	}
-	public static List<List<Integer>> caminoDivisibleN (Tree<Integer> tree) {
-		return caminoDivisibleNAux(tree,new ArrayList<List<Integer>>(),new ArrayList<Integer>(),0);	
+	public static<E> List<List<E>> caminoDivisibleN (Tree<Integer> tree) {
+		return caminoDivisibleNAux(tree,new ArrayList<List<E>>(),new ArrayList<E>(),0);	
 		}
-	public static List<List<Integer>> caminoDivisibleNAux(Tree<Integer> tree,List<List<Integer>> res,List<Integer> ac, int i) {
+	public static <E> List<List<E>> caminoDivisibleNAux(Tree<Integer> tree,List<List<E>> res,List<E> ac, int i) {
 		
 		return switch (tree) {
 		case TEmpty<Integer> t -> {
-			ac.add(0);
-			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
+			ac.add((E)"_");
+			Integer total=  ac.stream()
+	                .mapToInt(elemento -> {
+	                    try {
+	                        return Integer.parseInt(elemento.toString());
+	                    } catch (NumberFormatException e) {
+	                        return 0; // Tratar elementos no válidos como 0
+	                    }
+	                })
+	                .sum();
+		  if(total % i ==0) res.add(new ArrayList<>(ac));
            ac.remove(ac.size() - 1);
            yield res;
 		}
 		case TLeaf<Integer> t -> {
-			  ac.add(t.label());
-			    if( ac.stream().reduce(0, Integer::sum) % i ==0) res.add(new ArrayList<>(ac));
-              ac.remove(ac.size() - 1);
-              yield res;
+			ac.add((E)t.label());
+			Integer total=  ac.stream()
+		                .mapToInt(elemento -> {
+		                    try {
+		                        return Integer.parseInt(elemento.toString());
+		                    } catch (NumberFormatException e) {
+		                        return 0; // Tratar elementos no válidos como 0
+		                    }
+		                })
+		                .sum();
+			  if(total % i ==0) res.add(new ArrayList<>(ac));
+	           ac.remove(ac.size() - 1);
+	           yield res;
         
 		}
 		case TNary<Integer> t -> {
-			 ac.add(t.label());
+			 ac.add((E)t.label());
              t.children().forEach(tc->caminoDivisibleNAux(tc, res, ac, i + 1));		
              ac.remove(ac.size() - 1);
              yield res;
