@@ -89,17 +89,18 @@ public class TestEjercicio1 {
 	
 	public static void showCombined() {
 		MatPlotLib.showCombined("Tiempos",
-				List.of("ficheros_generados/E1_RD.txt","ficheros_generados/E1_RBI.txt","ficheros_generados/E1_ITD.txt","ficheros_generados/E1_ITBI.txt"), 
+				List.of("ficheros_generados/E1_RD.txt","ficheros_generados/E1_RBI.txt","ficheros_generados/E1_ITD.txt",
+						"ficheros_generados/E1_ITBI.txt"), 
 				List.of("Recursiva Doble","Recursiva Big Integer","Iterativo Double","Iterativo Big Integer"));
 //		List.of("ficheros_generados/pr.txt","ficheros_generados/lin.txt"), 
 //		List.of("Recursiva","Iterativa"));
 	}
 	
 	public static void main(String[] args) {
-		//genDataE1RD();
-		//genDataE1RBI();
-	//	genDataE1ITD();
-	//	genDataE1ITBI();
+		genDataE1RD();
+		genDataE1RBI();
+		genDataE1ITD();
+		genDataE1ITBI();
 	
 		showE1RD();
 		showE1RBI();

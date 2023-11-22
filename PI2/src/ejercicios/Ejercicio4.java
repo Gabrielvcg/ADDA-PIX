@@ -14,7 +14,7 @@ import us.lsi.tiposrecursivos.Tree.TNary;
 
 public class Ejercicio4 {
 
-    //############################################
+	
 	public static <E> List<List<E>> caminoDivisibleB (BinaryTree<Integer> tree) {
 		return caminoDivisibleBAux(tree,new ArrayList<List<E>>(),new ArrayList<E>(),0);	
 		}
@@ -105,32 +105,6 @@ public class Ejercicio4 {
 		}
 		};
 	}
-	/*
-public static List<List<Integer>> caminoDivisibleBAux(BinaryTree<Integer> tree, List<List<Integer>> res,List<Integer> ac, int i) {
-		
-		return switch (tree) {
-		case BEmpty<Integer> t -> res;
-		case BLeaf<Integer> t ->{
-			for (List<Integer> x : res) {
-				Integer total=x.stream().reduce(0, (a, b) -> a + b);
-				if (!(total+t.label()% x.size()==0)) {
-					res.remove(x);
-				}x.add(t.label());
-			}
-		yield res;}
-		case BTree<Integer> t -> {
-			
-			Integer sumaCamino=ac.stream().reduce(0, (a, b) -> a + b)+t.label();
-			if(sumaCamino % i==0 ) {
-			ac.add(0,t.label());
-		}
-			caminoDivisibleBAux(t.left(), res,ac, i+1); 
-			caminoDivisibleBAux(t.right(), res,ac, i+1); 
-			res.add(ac);
-							
-		yield res;
-		}
-		};
-	}*/
+	
 	
 }
