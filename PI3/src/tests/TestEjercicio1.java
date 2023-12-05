@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.jgrapht.Graph;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import datos.Relacion;
 import datos.Usuario;
@@ -19,34 +20,33 @@ public class TestEjercicio1 {
 
 
 	public static void main(String[] args) {
-		testsEjemplo1("ejercicio1_1");
+		testsEjercicio1A("ejercicio1_1");
+		testsEjercicio1A("ejercicio1_2");
+		testsEjercicio1A("ejercicio1_3");
 	
-		
-	}
+		}
 	
-	public static void testsEjemplo1(String file) {
-		Graph<Usuario, Relacion> g = GraphsReader
+	public static void testsEjercicio1A(String file) {
+		SimpleDirectedWeightedGraph<Usuario, Relacion> g = GraphsReader
 					.newGraph("ficheros/" + file + ".txt", //fichero de datos
 							Usuario::ofFormat, //factoria para construir los vertices
 							Relacion::ofFormat, //factoria para crear las aristas
 							Graphs2::simpleDirectedWeightedGraph,
 							Relacion::interaccion); //creador del grafo
 		
-		
-		
-		
-		//Para mostrar el grafo original
+		/*
+		 * //Para mostrar el grafo original
 		GraphColors.toDot(g,"resultados/ejercicio1/" + file + ".gv",
 				v->v.nombre(), //que etiqueta mostrar en vertices y aristas
 				e->e.interaccion().toString(),
 				v->GraphColors.color(Color.black), //color o estilo de vertices y aristas
 				e->GraphColors.color(Color.black));
-		
+		*/
 		
 		System.out.println("\nArchivo " + file + ".txt \n" + "Datos de entrada: " + g);
 		
-		// a) PrimerPredicado: Ciudades cuyo nombre contiene la letra “e”, y carreteras con menos de 200 km de distancia 
-	
+// A: usuarios que siga a mas de 3 personas y media de las aristas dirigidas a los que sigue mayor que 2.5	
+		
 		Predicate<Usuario> pv1 = u -> {
 		    Set<Relacion> edges = g.outgoingEdgesOf(u);
 		    // Filtrar las aristas por el índice de interacción
@@ -58,17 +58,14 @@ public class TestEjercicio1 {
 		    return edges.size() > 3 && total/interacciones.size() > 2.5;
 		};
 		Predicate<Relacion> pa1= null;
-		Ejercicio1.crearVista(file, g,pv1,pa1," Primer predicado");
 		
+		Ejercicio1.ejercicio1A(file, g,pv1,pa1,"A");
 		
-		/* b) SegundoPredicado: Ciudades que poseen menos de 500.000 habitantes, y carreteras cuya ciudad origen o 
-		   destino tiene un nombre de más de 5 caracteres y poseen más de 100 km de distancia */
-		/*
-		Predicate<Ciudad> pv2 = c -> c.habitantes() < 500000;
-		Predicate<Carretera> pa2 = ca -> ca.km() > 100 &&		
-			(g.getEdgeSource(ca).nombre().length() > 5 || g.getEdgeTarget(ca).nombre().length() > 5);
-		
-		Ejercicio1.crearVista(file, g,pv2,pa2," Segundo predicado");
-		*/
+		// B: Cantidad de componentes conexas y pintarlas cada una con distinto color
+		Ejercicio1.ejercicio1B(g, file);
 	}
+		
+		
+		
+	
 }
