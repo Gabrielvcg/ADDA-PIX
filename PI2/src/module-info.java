@@ -5,7 +5,7 @@
  * 
  */
 module PI2_Gabvacgoy {
-	requires partecomun;
-	requires datos_compartidos;
-	requires ejemplos_parte_comun;
+	requires transitive partecomun;
+	requires transitive datos_compartidos;
+	requires transitive ejemplos_parte_comun;
 }
