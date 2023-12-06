@@ -1,19 +1,23 @@
 package ejercicios;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.alg.vertexcover.GreedyVCImpl;
+import org.jgrapht.graph.AsUndirectedGraph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import datos.Relacion;
 import datos.Usuario;
 import us.lsi.colors.GraphColors;
 import us.lsi.colors.GraphColors.Color;
-
 import us.lsi.graphs.views.SubGraphView;
 
 public class Ejercicio1 {
@@ -55,14 +59,48 @@ public class Ejercicio1 {
 	}
 	public static void ejercicio1C(SimpleDirectedWeightedGraph<Usuario, Relacion> g, String file) {
 		
-		var alg = new GreedyVCImpl<>(g);
+		Graph<Usuario, Relacion> undirectedGraph = 
+	            new AsUndirectedGraph<>(g);
+	
+		var alg = new GreedyVCImpl<>(undirectedGraph);
 		Set<Usuario> vc = alg.getVertexCover();		
 		
-		GraphColors.toDot(g,"resultados/ejercicio1/" + file + "B.gv",
+		GraphColors.toDot(g,"resultados/ejercicio1/" + file + "C.gv",
 				x->x.nombre(), x->x.interaccion().toString(),
 				v->GraphColors.colorIf(Color.red, vc.contains(v)),
-				e->GraphColors.color(Color.red));
+				e->GraphColors.color(Color.black));
 		
 		System.out.println(file + "C.gv generado en " + "resultados/ejercicio1");
+	}
+	public static void ejercicio1D(String file, SimpleDirectedWeightedGraph<Usuario,Relacion> g, Predicate<Usuario> pv, 
+			Predicate<Relacion> pa, String nombreVista) {
+		
+		Graph<Usuario, Relacion> vista = SubGraphView.of(g, pv, pa);
+		Map<Usuario,Double> dicMedias=new HashMap<>();
+
+		Set<Usuario> usuarios= vista.vertexSet();
+		usuarios.forEach(u->{
+		    Set<Relacion> edges = vista.incomingEdgesOf(u);
+		    List<Double> interacciones = edges.stream()
+		            .map(r -> r.interaccion())  
+		            .collect(Collectors.toList());
+
+		    Double total = interacciones.stream().reduce(0.0, Double::sum);
+		    Double media = total/interacciones.size();
+		    dicMedias.put(u, media);
+		});
+		
+	    List<Usuario> topUsuarios = dicMedias.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
+                .limit(2)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+	    
+		GraphColors.toDot(g,"resultados/ejercicio1/" + file + nombreVista + ".gv",
+				x->x.nombre(), x->x.interaccion().toString(),
+				v->GraphColors.colorIf(Color.red, topUsuarios.contains(v)),
+				e->GraphColors.color(Color.black));
+		
+		System.out.println(file + nombreVista + ".gv generado en " + "resultados/ejercicio1");
 	}
 }
