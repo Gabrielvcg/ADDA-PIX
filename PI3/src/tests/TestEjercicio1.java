@@ -20,7 +20,9 @@ public class TestEjercicio1 {
 
 	public static void main(String[] args) {
 		testsEjercicio1("ejercicio1_1");
+		System.out.println("========================================================================================");
 		testsEjercicio1("ejercicio1_2");
+		System.out.println("========================================================================================");
 		testsEjercicio1("ejercicio1_3");
 	
 		}

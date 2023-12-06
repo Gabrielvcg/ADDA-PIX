@@ -34,6 +34,10 @@ public class Ejercicio1 {
 				v->GraphColors.colorIf(Color.red, vista.containsVertex(v)),
 				e->GraphColors.colorIf(Color.red, vista.containsEdge(e)));
 		
+		
+		System.out.println("\nEJERCICIO 1A ======================================================");
+		System.out.println("Los usuarios que siguen a más de 3 usuarios y con un índice de "
+				+ "interacción de media de más de 2.5 son:"+vista.vertexSet().toString());
 		System.out.println(file + nombreVista + ".gv generado en " + "resultados/ejercicio1");
 	}
 	
@@ -48,13 +52,22 @@ public class Ejercicio1 {
 		
 		var alg = new ConnectivityInspector<>(g);
 		List<Set<Usuario>> ls = alg.connectedSets();
-		System.out.println("Hay " + ls.size() + " componentes conexas." );
 		
 		GraphColors.toDot(g,"resultados/ejercicio1/" + file + "B.gv",
 				x->x.nombre(), x->x.interaccion().toString(),
 				v->GraphColors.color(asignaColor(v,ls,alg)),
 				e->GraphColors.color(asignaColor(g.getEdgeSource(e), ls, alg)));
+	
 		
+		System.out.println("\nEJERCICIO 1B ======================================================");
+		System.out.println("Hay " + ls.size() + " componentes conexas." );
+
+		int i=1;
+		for (Set<Usuario> su :ls) {
+			System.out.println("Componente conexa "+i+": "+ su.toString());
+			i++;
+		}
+
 		System.out.println(file + "B.gv generado en " + "resultados/ejercicio1");
 	}
 	public static void ejercicio1C(SimpleDirectedWeightedGraph<Usuario, Relacion> g, String file) {
@@ -70,6 +83,8 @@ public class Ejercicio1 {
 				v->GraphColors.colorIf(Color.red, vc.contains(v)),
 				e->GraphColors.color(Color.black));
 		
+		System.out.println("\nEJERCICIO 1C ======================================================");
+		System.out.println("Usuarios seleccionados: "+vc.toString());
 		System.out.println(file + "C.gv generado en " + "resultados/ejercicio1");
 	}
 	public static void ejercicio1D(String file, SimpleDirectedWeightedGraph<Usuario,Relacion> g, Predicate<Usuario> pv, 
@@ -101,6 +116,8 @@ public class Ejercicio1 {
 				v->GraphColors.colorIf(Color.red, topUsuarios.contains(v)),
 				e->GraphColors.color(Color.black));
 		
+		System.out.println("\nEJERCICIO 1D ======================================================");
+		System.out.println("Los/el "+ topUsuarios.size()+" usuario(s) con mayor interacción media son/es: "+topUsuarios.toString());
 		System.out.println(file + nombreVista + ".gv generado en " + "resultados/ejercicio1");
 	}
 }
