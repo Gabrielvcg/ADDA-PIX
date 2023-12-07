@@ -6,6 +6,7 @@ import java.util.List;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+import org.jgrapht.alg.tour.HeldKarpTSP;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 import datos.Atraccion;
@@ -36,6 +37,22 @@ public class Ejercicio2 {
 		gp.getVertexList().forEach(a->camino.add(a.nombre()));
 		System.out.println("\nEJERCICIO 2A ======================================================");
 		System.out.print("Camino más corto en distancia desde "+a1+" hasta "+a2+":"+camino.toString());
+		System.out.println("\n"+file + nombreVista + ".gv generado en " + "resultados/ejercicio2");
+	}
+	
+	public static <E> void ejercicio2B(String file, SimpleWeightedGraph<Atraccion,Vecindad> g, String nombreVista) {
+	
+		var alg =new HeldKarpTSP<Atraccion, Vecindad>();
+		GraphPath<Atraccion,Vecindad> gp=alg.getTour(g);
+		
+		GraphColors.toDot(g,"resultados/ejercicio2/" + file + nombreVista + ".gv",
+				x->x.nombre(), x->x.tiempo().toString(),
+				v->GraphColors.colorIf(Color.red,gp.getStartVertex().equals(v)),
+				e->GraphColors.colorIf(Color.red, gp.getEdgeList().contains(e)));
+		List<String> camino=new ArrayList<>();
+		gp.getVertexList().forEach(c->camino.add(c.nombre()));
+		System.out.println("\nEJERCICIO 2B ======================================================");
+		System.out.print("Camino más corto en tiempo que pasa por todas las atracciones:"+camino);
 		System.out.println("\n"+file + nombreVista + ".gv generado en " + "resultados/ejercicio2");
 	}
 	
