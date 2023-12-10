@@ -1,8 +1,15 @@
 package tests;
 
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 import datos.Atraccion;
+import datos.Relacion;
+import datos.Usuario;
 import datos.Vecindad;
 import ejercicios.Ejercicio2;
 import us.lsi.graphs.Graphs2;
@@ -38,8 +45,8 @@ public class TestEjercicio2 {
 						Graphs2::simpleWeightedGraph,
 						Vecindad::tiempo); //creador del grafo
 		Ejercicio2.ejercicio2B(file, gt,"B");
-
 		
+		Ejercicio2.ejercicio2C(file, gt,"C", 5);
 		
 	}
 	public static void testsEjercicio2F2(String file) {
@@ -64,7 +71,8 @@ public class TestEjercicio2 {
 		Ejercicio2.ejercicio2B(file, gt,"B");
 
 		
-		
+		Ejercicio2.ejercicio2C(file, gt,"C", 2);
+
 	}
 	public static void testsEjercicio2F3(String file) {
 		SimpleWeightedGraph<Atraccion, Vecindad> gd = GraphsReader
@@ -87,6 +95,9 @@ public class TestEjercicio2 {
 						Vecindad::tiempo); //creador del grafo
 		Ejercicio2.ejercicio2B(file, gt,"B");
 		
+		
+		Ejercicio2.ejercicio2C(file, gt,"C", 3);
+
 		
 	}
 }
