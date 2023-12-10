@@ -12,15 +12,15 @@ import us.lsi.graphs.GraphsReader;
 public class TestEjercicio3 {
 
 	public static void main(String[] args) {
-		testsEjercicio1("ejercicio3_1");
+		testsEjercicio3("ejercicio3_1");
 		System.out.println("========================================================================================");
-		testsEjercicio1("ejercicio3_2");
+		testsEjercicio3("ejercicio3_2");
 		System.out.println("========================================================================================");
-		testsEjercicio1("ejercicio3_3");
+		testsEjercicio3("ejercicio3_3");
 	
 		}
 	
-	public static void testsEjercicio1(String file) {
+	public static void testsEjercicio3(String file) {
 		SimpleDirectedGraph<Tarea, Precedencia> g = GraphsReader
 					.newGraph("ficheros/" + file + ".txt", //fichero de datos
 							Tarea::ofFormat, //factoria para construir los vertices
