@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
@@ -82,4 +82,69 @@ public class Ejercicio3 {
 	    return tareasNecesarias;
 	}
 	
+	public static void ejercicio3C(String file, SimpleDirectedGraph<Tarea, Precedencia> g, String nombreVista) {
+	    // Encontrar la tarea más determinante
+	    Tarea tareaMasDeterminante = encontrarTareaMasDeterminante(g);
+
+	    // Obtener tareas que dependen de la tarea más determinante
+	    Set<Tarea> dependientes = obtenerTareasDependientes(g, tareaMasDeterminante);
+
+	    GraphColors.toDot(g, "resultados/ejercicio3/" + file + nombreVista + ".gv",
+	            x -> x.nombre(), x -> "Relacion-" + x.id().toString(),
+	            v -> GraphColors.color(tareaMasDeterminante.equals(v) ? Color.red : (dependientes.contains(v) ? Color.blue : Color.black)),
+	            e -> GraphColors.color(dependientes.contains(g.getEdgeSource(e)) &&
+	                    dependientes.contains(g.getEdgeTarget(e)) ? Color.blue : Color.black));
+
+	    System.out.println("\nEJERCICIO 3C ======================================================");
+	    System.out.println("Tarea más determinante: " + tareaMasDeterminante.nombre());
+	    System.out.println("Tareas que dependen de la tarea más determinante: " + dependientes);
+	    System.out.println(file + nombreVista + ".gv generado en " + "resultados/ejercicio3");
+	}
+
+	private static Tarea encontrarTareaMasDeterminante(SimpleDirectedGraph<Tarea, Precedencia> g) {
+	    int maxDependientes = 0;
+	    Tarea tareaMasDeterminante = null;
+
+	    // Iterar sobre todas las tareas para encontrar la más determinante
+	    for (Tarea tarea : g.vertexSet()) {
+	        Set<Tarea> dependientes = obtenerTareasDependientes(g, tarea);
+
+	        if (dependientes.size() > maxDependientes) {
+	            maxDependientes = dependientes.size();
+	            tareaMasDeterminante = tarea;
+	        }
+	    }
+
+	    return tareaMasDeterminante;
+	}
+
+	private static Set<Tarea> obtenerTareasDependientes(SimpleDirectedGraph<Tarea, Precedencia> g, Tarea tarea) {
+	    Set<Tarea> dependientes = new HashSet<>();
+
+	    // Iterar sobre los sucesores de la tarea actual
+	    for (Precedencia edge : g.outgoingEdgesOf(tarea)) {
+	        dependientes.add(g.getEdgeTarget(edge));
+	    }
+
+	    return dependientes;
+	}
+	
+	private static Tarea obtenerTareaMasDependiente(SimpleDirectedGraph<Tarea, Precedencia> g) {
+	    Tarea tareaMasDependiente = null;
+	    int maxNumTareas = 0;
+
+	    Set<Tarea> tareas = g.vertexSet();
+	    for (Tarea tarea : tareas) {
+	        Set<Tarea> tareasNecesarias = obtenerTareasNecesarias(g, tarea);
+
+	        // Verificar si es la tarea más determinante hasta ahora
+	        if (tareasNecesarias.size() > maxNumTareas) {
+	            maxNumTareas = tareasNecesarias.size();
+	            tareaMasDependiente = tarea;
+	        }
+	    }
+
+	    return tareaMasDependiente;
+	}
+
 }

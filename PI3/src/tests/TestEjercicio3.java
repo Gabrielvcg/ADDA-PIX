@@ -30,7 +30,9 @@ public class TestEjercicio3 {
 		System.out.println("\nArchivo " + file + ".txt \n" + "Datos de entrada: " + g);
 		
 		Ejercicio3.ejercicio3A(file, g,"A");
-		Ejercicio3.ejercicio3B(file, g,new Tarea("Tarea5"),"B");		
+		Ejercicio3.ejercicio3B(file, g,new Tarea("Tarea5"),"B");	
+		Ejercicio3.ejercicio3C(file,g,"C");
+
 
 	}
 	public static void testsEjercicio3F2(String file) {
@@ -43,7 +45,9 @@ public class TestEjercicio3 {
 		System.out.println("\nArchivo " + file + ".txt \n" + "Datos de entrada: " + g);
 		
 		Ejercicio3.ejercicio3A(file, g,"A");
-		Ejercicio3.ejercicio3B(file, g,new Tarea("Tarea8"),"B");		
+		Ejercicio3.ejercicio3B(file, g,new Tarea("Tarea8"),"B");	
+		Ejercicio3.ejercicio3C(file,g,"C");
+
 
 	}
 	public static void testsEjercicio3F3(String file) {
@@ -57,6 +61,8 @@ public class TestEjercicio3 {
 		
 		Ejercicio3.ejercicio3A(file, g,"A");
 		Ejercicio3.ejercicio3B(file, g,new Tarea("Tarea8"),"B");		
+		Ejercicio3.ejercicio3C(file,g,"C");
+
 
 	}
 	
