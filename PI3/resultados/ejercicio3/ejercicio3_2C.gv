@@ -1,0 +1,31 @@
+strict digraph G {
+  1 [ color="red" label="Tarea1" ];
+  2 [ color="red" label="Tarea2" ];
+  3 [ color="red" label="Tarea3" ];
+  4 [ color="blue" label="Tarea4" ];
+  5 [ color="blue" label="Tarea5" ];
+  6 [ color="blue" label="Tarea6" ];
+  7 [ color="blue" label="Tarea7" ];
+  8 [ color="blue" label="Tarea8" ];
+  9 [ color="blue" label="Tarea9" ];
+  10 [ color="blue" label="Tarea10" ];
+  1 -> 4 [ color="blue" label="Relacion-12" ];
+  1 -> 5 [ color="blue" label="Relacion-13" ];
+  1 -> 9 [ color="blue" label="Relacion-14" ];
+  2 -> 4 [ color="blue" label="Relacion-15" ];
+  2 -> 6 [ color="blue" label="Relacion-16" ];
+  2 -> 8 [ color="blue" label="Relacion-17" ];
+  2 -> 9 [ color="blue" label="Relacion-18" ];
+  3 -> 4 [ color="blue" label="Relacion-19" ];
+  3 -> 10 [ color="blue" label="Relacion-20" ];
+  4 -> 5 [ color="blue" label="Relacion-21" ];
+  4 -> 6 [ color="blue" label="Relacion-22" ];
+  5 -> 7 [ color="blue" label="Relacion-23" ];
+  5 -> 9 [ color="blue" label="Relacion-24" ];
+  6 -> 7 [ color="blue" label="Relacion-25" ];
+  6 -> 8 [ color="blue" label="Relacion-26" ];
+  7 -> 8 [ color="blue" label="Relacion-27" ];
+  7 -> 9 [ color="blue" label="Relacion-28" ];
+  8 -> 10 [ color="blue" label="Relacion-29" ];
+  9 -> 10 [ color="blue" label="Relacion-30" ];
+}
