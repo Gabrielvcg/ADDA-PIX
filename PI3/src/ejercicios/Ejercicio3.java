@@ -143,6 +143,7 @@ public class Ejercicio3 {
 	    obtenerTareasDependientesRecursivo(g, tarea, dependientes);
 	    return dependientes;
 	}
+	/* METODO REALIZADO POR ERROR PERO COMO ES INTERESANTE AHI SE QUEDA
 	private static Tarea obtenerTareaMasDependiente(SimpleDirectedGraph<Tarea, Precedencia> g) {
 	    Tarea tareaMasDependiente = null;
 	    int maxNumTareas = 0;
@@ -159,6 +160,6 @@ public class Ejercicio3 {
 	    }
 
 	    return tareaMasDependiente;
-	}
+	}*/
 
 }
