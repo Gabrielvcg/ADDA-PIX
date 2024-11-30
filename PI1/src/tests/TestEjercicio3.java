@@ -9,12 +9,12 @@ public class TestEjercicio3 {
 public static void main(String[] args) {
 		
         // Ruta del archivo de entrada
-        String archivoEntrada1A = "../Practicas/ficheros/PI1Ej3DatosEntrada1A.txt";
-        String archivoEntrada1B = "../Practicas/ficheros/PI1Ej3DatosEntrada1B.txt";
-        String archivoEntrada2A = "../Practicas/ficheros/PI1Ej3DatosEntrada2A.txt";
-        String archivoEntrada2B = "../Practicas/ficheros/PI1Ej3DatosEntrada2B.txt";
-        String archivoEntrada3A = "../Practicas/ficheros/PI1Ej3DatosEntrada3A.txt";
-        String archivoEntrada3B = "../Practicas/ficheros/PI1Ej3DatosEntrada3B.txt";
+        String archivoEntrada1A = "../PI1/ficheros/PI1Ej3DatosEntrada1A.txt";
+        String archivoEntrada1B = "../PI1/ficheros/PI1Ej3DatosEntrada1B.txt";
+        String archivoEntrada2A = "../PI1/ficheros/PI1Ej3DatosEntrada2A.txt";
+        String archivoEntrada2B = "../PI1/ficheros/PI1Ej3DatosEntrada2B.txt";
+        String archivoEntrada3A = "../PI1/ficheros/PI1Ej3DatosEntrada3A.txt";
+        String archivoEntrada3B = "../PI1/ficheros/PI1Ej3DatosEntrada3B.txt";
         
         List<String> lineas1A = Files2.linesFromFile(archivoEntrada1A);
         List<String> lineas1B = Files2.linesFromFile(archivoEntrada1B);

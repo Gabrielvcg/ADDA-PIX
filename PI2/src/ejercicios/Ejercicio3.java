@@ -4,14 +4,15 @@ package ejercicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import us.lsi.tiposrecursivos.BEmpty;
+import us.lsi.tiposrecursivos.BLeaf;
+import us.lsi.tiposrecursivos.BTree;
 import us.lsi.tiposrecursivos.BinaryTree;
-import us.lsi.tiposrecursivos.BinaryTree.BEmpty;
-import us.lsi.tiposrecursivos.BinaryTree.BLeaf;
-import us.lsi.tiposrecursivos.BinaryTree.BTree;
+import us.lsi.tiposrecursivos.TEmpty;
+import us.lsi.tiposrecursivos.TLeaf;
+import us.lsi.tiposrecursivos.TNary;
 import us.lsi.tiposrecursivos.Tree;
-import us.lsi.tiposrecursivos.Tree.TEmpty;
-import us.lsi.tiposrecursivos.Tree.TLeaf;
-import us.lsi.tiposrecursivos.Tree.TNary;
+
 
 
 public class Ejercicio3 {

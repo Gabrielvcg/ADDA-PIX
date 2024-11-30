@@ -8,7 +8,7 @@ public class TestEjercicio1 {
 	public static void main(String[] args) {
 	
             // Ruta del archivo de entrada
-            String archivoEntrada = "../Practicas/ficheros/PI1Ej1DatosEntrada.txt";
+            String archivoEntrada = "../PI1/ficheros/PI1Ej1DatosEntrada.txt";
 
             List<String> lineas = Files2.linesFromFile(archivoEntrada);
 			for (String linea: lineas) {
