@@ -3,7 +3,7 @@ package ejercicios;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SVPNaive {
+public class NVPNaive {
 
     // Función para generar una base aleatoria
     public static List<List<Integer>> generateRandomBase(int dim) {
@@ -18,25 +18,25 @@ public class SVPNaive {
         return base;
     }
 
-    // Función para encontrar el vector más corto, considerando todos los pares de puntos
-    public static List<Integer> findShortestVector(List<List<Integer>> latticePoints) {
-        List<Integer> shortestVector = null;
-        double shortestNorm = Double.MAX_VALUE;
+    // Función para encontrar el vector más cercano al punto objetivo t
+    public static List<Integer> findNearestVector(List<List<Integer>> latticePoints, List<Integer> targetPoint) {
+        List<Integer> nearestVector = null;
+        double nearestDistance = Double.MAX_VALUE;
 
-        // Compara todos los pares de puntos en latticePoints
-        for (int i = 0; i < latticePoints.size(); i++) {
-            for (int j = i + 1; j < latticePoints.size(); j++) {
-                List<Integer> vector = subtractVectors(latticePoints.get(j), latticePoints.get(i));
-                double norm = calculateNorm(vector);
+        // Compara todos los puntos de la red con el punto objetivo t
+        for (List<Integer> point : latticePoints) {
+            // Calcula el vector que va de t a cada punto de la red
+            List<Integer> vector = subtractVectors(point, targetPoint);
+            double distance = calculateNorm(vector); // Calcular la distancia entre t y el punto de la red
 
-                if (norm > 0 && norm < shortestNorm) { // Excluir el vector nulo
-                    shortestNorm = norm;
-                    shortestVector = vector;
-                }
+            // Si la distancia es la menor encontrada, actualizamos el vector más cercano
+            if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestVector = point; // Guardamos el punto más cercano
             }
         }
 
-        return shortestVector;
+        return nearestVector;
     }
 
     // Función para restar dos vectores
@@ -48,7 +48,7 @@ public class SVPNaive {
         return result;
     }
 
-    // Función para calcular la norma de un vector
+    // Función para calcular la norma (distancia euclidiana) de un vector
     public static double calculateNorm(List<Integer> vector) {
         return Math.sqrt(vector.stream().mapToDouble(x -> x * x).sum());
     }
@@ -59,7 +59,17 @@ public class SVPNaive {
         generateRecursive(base, k, new ArrayList<>(), latticePoints, 0);
         return latticePoints;
     }
+    
+ // Función para generar un punto aleatorio en Z^dim (espacio de dimensión 'dim') con valores en el rango [-maxValue, maxValue]
+    public static List<Integer> generateRandomPoint(int dim, int maxValue) {
+        List<Integer> point = new ArrayList<>();
+        for (int i = 0; i < dim; i++) {
+            point.add((int) (Math.random() * (2 * maxValue + 1)) - maxValue); // Valores aleatorios entre -maxValue y maxValue
+        }
+        return point;
+    }
 
+    
     // Método recursivo para generar los puntos del lattice
     private static void generateRecursive(List<List<Integer>> base, int k, List<Integer> coefficients,
                                           List<List<Integer>> latticePoints, int depth) {
@@ -81,6 +91,8 @@ public class SVPNaive {
             generateRecursive(base, k, newCoefficients, latticePoints, depth + 1);
         }
     }
+
+    // Función principal para probar
     public static void main(String[] args) {
         List<List<Integer>> base = generateRandomBase(2); // Base aleatoria en 2 dimensiones
         System.out.println("Base: " + base);
@@ -88,9 +100,14 @@ public class SVPNaive {
         List<List<Integer>> latticePoints = generateLatticePoints(base, k);
         System.out.println("Lattice Points: " + latticePoints);
 
-        // Encontrar el vector más corto
-        List<Integer> shortestVector = findShortestVector(latticePoints);
-        System.out.println("Vector más corto: " + shortestVector);
-    }
+        // Definir el punto objetivo t
+        List<Integer> targetPoint = new ArrayList<>();
+        targetPoint.add(2); // x = 1
+        targetPoint.add(2); // y = 2
+        System.out.println("Punto objetivo t: " + targetPoint);
 
+        // Encontrar el vector más cercano al punto t
+        List<Integer> nearestVector = findNearestVector(latticePoints, targetPoint);
+        System.out.println("Vector más cercano: " + nearestVector);
+    }
 }
